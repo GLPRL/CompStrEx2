@@ -1,9 +1,9 @@
-#318778594 Gal Pearl
+#<> Gal Pearl
 #ID chosen: mine.
         .data
-id:  .int 318778594
+id:  .int <>
 	.section 	.rodata                                  #Compiled using gcc main.s -no-pie
-format1: .string "%d\n"                        	          #id: 318778594
+format1: .string "%d\n"                        	          #id: <>
 formatt: .string "True\n"
 formatf: .string "False\n"
 	.text
