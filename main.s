@@ -21,7 +21,7 @@ main:
     and    $0x01, %ah				           #bitwise AND, and conditional jump
     jz     even
 
-odd:      #If number is odd: mult by 3 and print
+odd:      						   #If number is odd: mult by 3 and print
     mov    id, %esi
     leal   (%esi, %esi, 2), %esi
     lea    format1(%rip), %rdi
