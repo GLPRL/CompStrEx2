@@ -1,24 +1,24 @@
-#<> Gal Pearl
+#318778594 Gal Pearl
 #ID chosen: mine.
         .data
-id:  .int <>
-	.section 	.rodata                                  #Compiled using gcc main.s -no-pie
-format1: .string "%d\n"                        	          #id: <>
+id:  .int 318778594
+	.section 	.rodata                            #Compiled using gcc main.s -no-pie
+format1: .string "%d\n"                        	           #id: 318778594
 formatt: .string "True\n"
 formatf: .string "False\n"
 	.text
-.globl	main	                           		#initial point of this program
-    .type	main, @function                                    #the main label is a function
+.globl	main	                           		   #initial point of this program
+    .type	main, @function                            #the main label is a function
 main:
     push 	 %rbx
-    movq   %rsp, %rbp                                        #for correct debugging					
+    movq   %rsp, %rbp                                      #for correct debugging					
     lea    format1(%rip), %rdi
     mov    id, %esi
     call   printf
     and    $0, %rdi
-    #part 2                 getting the remainder.
+    #part 2                                                getting the remainder.
     movq   id, %rax
-    and    $0x01, %ah				#bitwise AND, and conditional jump
+    and    $0x01, %ah				           #bitwise AND, and conditional jump
     jz     even
 
 odd:      #If number is odd: mult by 3 and print
@@ -36,9 +36,9 @@ even:      #If number is even: remainder of div by 3
     lea    format1(%rip), %rdi
     mov    %edx, %esi
     call   printf
-cont1:
-    #part 3                 al will be first byte. bl will be 3rd byte.
-    movq   id, %rax         #al now has 1st byte
+cont1:      
+    #part 3                                                al will be first byte. bl will be 3rd byte.
+    movq   id, %rax                                        #al now has 1st byte
     movq   id, %rbx
     sar    $16, %rbx
     xor    %bl, %al
@@ -54,28 +54,28 @@ great:
     call   printf
     mov    $0x00, %rax  
 cont2:
-    #part 4                detect and print number of ON/TRUE/1 bits
+    #part 4                                             detect and print number of ON/TRUE/1 bits
     mov   id, %rax
-    and   $0x00, %rsi      #hold the num of 1 bits
-    shr   $0x18, %rax      #right shift by 24. our value is now at register al
-    movb  %al, %bl         #bl holds a copy. rshift it and copy back to al
-pre:
-    cmpb  $0x00, %al       #if al is zero, then num of bits is 0
+    and   $0x00, %rsi                                   #hold the num of 1 bits
+    shr   $0x18, %rax                                   #right shift by 24. our value is now at register al
+    movb  %al, %bl                                      #bl holds a copy. rshift it and copy back to al
+pre:                                                    #precheck, if the register isn't 0, then we enter loop.
+    cmpb  $0x00, %al                                    #if al is zero, then num of bits is 0, so we jump over the loop.
     je    cont3
 L1:
     movb  %bl, %al
-    and   $1, %al
-    cmpb  $1, %al
-    je    incr
+    and   $1, %al                                       #finding if we got a bit at index 0.
+    cmpb  $1, %al                                       #if there is, we compare, and if equals to 1, then we increment and continue.
+    je    incr                                          #if a bit is still active, then we found a bit in the original number.
     shr   $1, %bl
     movb  %bl, %al
     ja    pre
     jmp   cont3
-incr:
+incr:                                                   #if the LSb is 1, then we found an existing bit, so we incr the counter
     inc   %rsi
-    shr   $1, %bl
+    shr   $1, %bl                                       #logical rshift for bl to find next bit.
     jmp   L1
-cont3:
+cont3:                                                  #finishing and printing the num of active bits
     lea   format1(%rip), %rdi
     call  printf
     pop   %rbx
